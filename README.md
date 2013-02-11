@@ -3,6 +3,13 @@ ipfilter-updater
 
 ipfilter updater for Unix, Mac OS, Linux
 
+The ipfilter list contains the list of IPs that are invalid, i.e., set up by 
+anti-p2p organizations. If your torrent client connects to one of these,
+you may get corrupted data or even have your IP recorded down by them.
+
+This updater serves to download the list maintained by iblocklist.com
+for use by uTorrent.
+
 Currently, this only works for uTorrent in Mac OS X, but it can be easily 
 modified to work on any system.
 This is only tested for Mac OS X 10.8 (Mountain Lion), although it should also
@@ -12,6 +19,13 @@ Requirements
 ============
 This requires Python 2.3 and above.
 
+Configuring
+===========
+1) In the uTorrent window in Mac, press Command+Option+, (yes, comma)
+   all three keys at the same time.
+
+2) The options window with the advanced tab should show up. 
+   Scroll down to ensure that ipfilter.enable is set to true.
 
 Installing
 ==========
