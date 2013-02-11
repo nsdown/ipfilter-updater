@@ -6,12 +6,9 @@ import sys
 import os
 import urllib2
 from datetime import datetime
-from os.path import expanduser
 
-homeDirPath = expanduser("~")
-
-tempDirPath = tempfile.gettempdir()
-logFilePath = os.path.join(homeDirPath, 'ipfilter-updater.log')
+homeDirPath = os.path.expanduser("~")
+logFilePath = os.path.join(homeDirPath, '.ipfilter-updater.log')
 logFile = open(logFilePath, 'a')
 
 def log(s):
@@ -27,6 +24,7 @@ def main():
     tmpFile, tmpFilePath = tempfile.mkstemp('.gz', 'ipfilter-updater-')
     response = urllib2.urlopen('http://tbg.iblocklist.com/Lists/ipfilter.dat.gz')
     ipfilterDataGz = response.read()
+    response.close()
     os.write(tmpFile, ipfilterDataGz)
     os.close(tmpFile)
     log('ipfilter data downloaded to '+tmpFilePath)
