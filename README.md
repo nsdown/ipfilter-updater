@@ -15,9 +15,15 @@ This requires Python 2.3 and above.
 
 Installing
 ==========
+The aim is to set up a cron job for the updater script.
+
 1) Clone this repo to your local machine
+
 2) Do "crontab -e". This will bring up an editor.
-3) Enter "00 21 * * * path/to/updater.py" without the quotes and save.
+
+3) Enter "00 21 * * * path/to/updater.py" on a line of its own 
+   without the quotes and save.
+   Please escape any space in the path.
    This means run the updater at 9 PM (21:00) every day.
    To start typing in vim, press i
    To save in vim, press Escape and then :wq (colon w q) and Enter.
