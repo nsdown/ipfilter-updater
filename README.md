@@ -1,6 +1,5 @@
 ipfilter-updater
 ================
-
 ipfilter updater for Unix, Mac OS, Linux
 
 The ipfilter list contains the list of IPs that are invalid, i.e., set up by 
@@ -21,26 +20,27 @@ This requires Python 2.3 and above.
 
 Configuring
 ===========
-1) In the uTorrent window in Mac, press Command+Option+, (yes, comma)
+1. In the uTorrent window in Mac, press Command+Option+, (yes, comma)
    all three keys at the same time.
 
-2) The options window with the advanced tab should show up. 
+2. The options window with the advanced tab should show up. 
    Scroll down to ensure that ipfilter.enable is set to true.
 
 Installing
 ==========
 The aim is to set up a cron job for the updater script.
 
-1) Clone this repo to your local machine
+1. Clone this repo to your local machine
 
-2) Do "crontab -e". This will bring up an editor.
+2. Do `crontab -e`. This will bring up a text editor.
 
-3) Enter "00 21 * * * path/to/updater.py" on a line of its own 
+3. Enter `00 21 * * * path/to/updater.py` on a line of its own 
    without the quotes and save.
    Please escape any space in the path.
    This means run the updater at 9 PM (21:00) every day.
-   To start typing in vim, press i
-   To save in vim, press Escape and then :wq (colon w q) and Enter.
+   
+   If the editor is `vim`: To start typing in vim, press `i`.
+   To save in `vim`, press Escape and then `:wq` (colon w q) and Enter.
 
-4) Do "crontab -l" to verify you have entered the cronjob correctly.
+4. Do `crontab -l` to verify you have entered the cron job correctly.
 
