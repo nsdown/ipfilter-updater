@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import gzip
 import tempfile
@@ -19,39 +19,49 @@ def log(s):
     logFile.flush()
     os.fsync(logFile.fileno())
 
-def main():
-    log('Downloading ipfilter data...')
-    tmpFile, tmpFilePath = tempfile.mkstemp('.gz', 'ipfilter-updater-')
+def download(tmpFile):
     response = urllib2.urlopen('http://tbg.iblocklist.com/Lists/ipfilter.dat.gz')
     ipfilterDataGz = response.read()
     response.close()
+
     os.write(tmpFile, ipfilterDataGz)
     os.close(tmpFile)
-    log('ipfilter data downloaded to '+tmpFilePath)
-    
-    ipfilterDataGz = ''
-    f = gzip.open(tmpFilePath, 'rb')
-    ipfilterData = f.read()
-    f.close()
+     
+def update():
+    log('Downloading ipfilter data...')
+    tmpFile, tmpFilePath = tempfile.mkstemp('.gz', 'ipfilter-updater-')
 
-    os.remove(tmpFilePath)
+    try:
+        download(tmpFile)
+        log('ipfilter data downloaded to '+tmpFilePath)
+        
+        f = gzip.open(tmpFilePath, 'rb')
+        ipfilterData = f.read()
+        f.close()
+    finally:
+        os.remove(tmpFilePath)
 
     uTorrentDirPath = os.path.join(homeDirPath, 'Library', \
                       'Application Support', \
                       'uTorrent')
-    added = 0
+    added = False
+
     if os.path.isdir(uTorrentDirPath):
         targetFile = open(os.path.join(uTorrentDirPath, 'ipfilter.dat'),'wb')
         targetFile.write(ipfilterData)
         targetFile.close()
         log('Added to uTorrent')
-        added = 1
+        added = True
 
     if not added:
         log('WARNING: not added to any app')
 
-log('---------Session started-----------')
-main()
-log('---------Session ended----------')
-logFile.close()
+def main():
+    log('---------Session started-----------')
+    update()
+    log('---------Session ended----------')
+    logFile.close()
+
+if __name__ == '__main__':
+    main()
 
